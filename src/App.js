@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import CreatePage from './components/CreatePage';
+import GalleryPage from './components/GalleryPage';
+import DetailPage from './components/DetailPage';
+import EditPage from './components/EditPage';
+import ErrorBoundary from './ErrorBoundary';
+import './styles.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ErrorBoundary>
+        <div className="app">
+          <nav className="sidebar">
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/create">Create a Crewmate!</Link></li>
+              <li><Link to="/gallery">Crewmate Gallery</Link></li>
+            </ul>
+          </nav>
+          <div className="main-content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/create" element={<CreatePage />} />
+              <Route path="/gallery" element={<GalleryPage />} />
+              <Route path="/detail/:id" element={<DetailPage />} />
+              <Route path="/edit/:id" element={<EditPage />} />
+            </Routes>
+          </div>
+        </div>
+      </ErrorBoundary>
+    </Router>
   );
 }
 
